@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/binary"
 	"fmt"
 	"log"
 	"net/http"
@@ -64,12 +65,12 @@ func create_post(msg string) {
 func build_grpc_binary(data []byte) []byte {
 	len := len(data)
 
-	// 00 00 00 00 len
+	bs := make([]byte, 4)
+	binary.BigEndian.PutUint32(bs, uint32(len))
 
-	data = append([]byte{0, 0, 0, 0, byte(len)}, data...)
+	data = append(bs, data...)
+	data = append([]byte{0}, data...)
 
-	// data = append([]byte{len}, data...)
-	// data = append([]byte{0, 0, 0, 0, 8}, data...)
 	return data
 }
 
@@ -97,6 +98,9 @@ func send_grpc_api(url string, data []byte) {
 
 	defer resp.Body.Close()
 
+	responseBody := new(bytes.Buffer)
+	responseBody.ReadFrom(resp.Body)
+
 	fmt.Println("response Status:", resp.Status)
-	fmt.Printf("response body: %v\n", resp.Body)
+	fmt.Printf("response body: %s\n", responseBody.Bytes())
 }
