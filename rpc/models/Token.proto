@@ -4,6 +4,12 @@ package io.github.sim1222.mixi2proto.rpc.models;
 
 option go_package = "github.com/sim1222/mixi2proto/rpc/models";
 
+import "google/protobuf/timestamp.proto";
+
 message TokenResponse {
-	
+	string refresh_token = 1;
+	google.protobuf.Timestamp expires_at = 2;
+	message a {
+		
+	}
 }

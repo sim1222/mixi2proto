@@ -12,7 +12,7 @@ message CreatePostRequest {
 	string quote_to = 3;
 	string media_uuid = 4;
 	oneof nazoone {
-		uint32 nazo1 = 6;
+		uint32 is_sensitive = 6;
 	}
 	string community_uuid = 7; // community or event uuid
 

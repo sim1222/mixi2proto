@@ -3,3 +3,13 @@ syntax = "proto3";
 package io.github.sim1222.mixi2proto.rpc;
 
 option go_package = "github.com/sim1222/mixi2proto/rpc";
+
+import "models/Person.proto";
+
+message GetProfileRequest {
+  string user_id = 1;
+}
+
+service GetProfile {
+  rpc GetProfile (GetProfileRequest) returns (models.PersonWithDetail) {}
+}

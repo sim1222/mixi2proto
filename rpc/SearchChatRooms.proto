@@ -3,3 +3,14 @@ syntax = "proto3";
 package io.github.sim1222.mixi2proto.rpc;
 
 option go_package = "github.com/sim1222/mixi2proto/rpc";
+
+import "google/protobuf/empty.proto";
+
+message SearchChatRoomsRequest {
+  uint32 nazo = 1;
+  repeated string user_id = 2;
+}
+
+service SearchChatRooms {
+  rpc SearchChatRooms (SearchChatRoomsRequest) returns (google.protobuf.Empty);
+}

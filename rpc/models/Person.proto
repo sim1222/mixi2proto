@@ -4,6 +4,8 @@ package io.github.sim1222.mixi2proto.rpc.models;
 
 option go_package = "github.com/sim1222/mixi2proto/rpc/models";
 
+import "google/protobuf/timestamp.proto";
+
 message Person {
 	string id = 1;
 	string username = 2;
@@ -15,9 +17,39 @@ message Person {
 	string bio = 8;
 	string profile_url = 9;
 
-	uint32 nazo3 = 16;
+	uint32 nazo3 = 16; // always 1
 
-	message CreatedAt {
-		uint32 unix_time_sec = 1;
-	}
+	google.protobuf.Timestamp created_at = 17;
+}
+
+message RecommendedPersons {
+	uint32 nazo = 2;
+	repeated Person persons = 3;
+}
+
+enum SNSId {
+	UNDEFINED = 0;
+	X = 1;
+	Instagram = 2;
+	TikTok = 3;
+	YouTube = 4;
+}
+
+message SNS {
+	SNSId id = 1;
+	string user_id = 2;
+}
+
+message PersonWithDetail {
+	Person person = 1;
+	uint32 following = 2;
+	uint32 followers = 3;
+
+	string profile_url = 5;
+
+	string url = 6;
+
+	RecommendedPersons recommended_persons = 7;
+
+	repeated SNS sns = 13;
 }

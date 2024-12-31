@@ -3,3 +3,29 @@ syntax = "proto3";
 package io.github.sim1222.mixi2proto.rpc;
 
 option go_package = "github.com/sim1222/mixi2proto/rpc";
+
+message SendGroupMessageRequest {
+  repeated string user_id = 1;
+  string message = 2;
+}
+
+message SendGroupMessageResponse {
+  string message = 1;
+}
+
+message ChatRoom {
+	string id = 1;
+	string created_at_unix_usec = 2;
+	string create_user_id = 3;
+
+	string nazo = 6;
+
+	message Time {
+		uint32 unix_sec = 1;
+		uint32 unix_usec = 2;
+	}
+}
+
+service SendGroupMessage {
+  rpc SendGroupMessage (SendGroupMessageRequest) returns (google.protobuf.Empty);
+}

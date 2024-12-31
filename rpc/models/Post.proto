@@ -4,10 +4,12 @@ package io.github.sim1222.mixi2proto.rpc.models;
 
 option go_package = "github.com/sim1222/mixi2proto/rpc/models";
 
+import "google/protobuf/timestamp.proto";
+
 message PostSummary {
 	string post_uuid = 1;
 	string unix_time_usec = 2;
-	PostTime post_time = 3;
+	google.protobuf.Timestamp created_at = 3;
 	string user_uuid = 4;
 
 	repeated Media media = 7;
@@ -33,10 +35,6 @@ message PostSummary {
 	 */
 	bytes decoration_flag = 28;
 	repeated ReactionCount reaction_counts = 29;
-}
-
-message PostTime {
-	uint32 unix_time_sec = 1;
 }
 
 message ReactionCount {
