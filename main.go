@@ -9,11 +9,13 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	pb "github.com/sim1222/mixi2proto/proto"
+	rpc "github.com/sim1222/mixi2proto/rpc"
 	"google.golang.org/protobuf/proto"
 )
 
 // load from env
+
+const AUTH_KEY = "f8y9aiohfja57890iokjbgftfmdnjkh9kjfrtr89y0upojvgct8798y09uojbvcut98y"
 
 func main() {
 	err := godotenv.Load()
@@ -42,9 +44,9 @@ func main() {
 }
 
 func create_post(msg string) {
-	m := &pb.CreatePost{
+	m := &rpc.CreatePostRequest{
 		Body: msg,
-		Nazoone: &pb.CreatePost_Nazo1{
+		Nazoone: &rpc.CreatePostRequest_Nazo1{
 			Nazo1: 0,
 		},
 	}
@@ -77,8 +79,6 @@ func build_grpc_binary(data []byte) []byte {
 func send_grpc_api(url string, data []byte) {
 
 	mercuryAuthorization := os.Getenv("MERCURY_AUTHORIZATION")
-	authKey := os.Getenv("AUTH_KEY")
-
 	reader := bytes.NewReader(data)
 
 	req, _ := http.NewRequest("POST", url, reader)
@@ -87,7 +87,7 @@ func send_grpc_api(url string, data []byte) {
 	req.Header.Set("te", "trailers")
 	req.Header.Set("user-agent", "Mercury-ios/1.2.0")
 	req.Header.Set("x-mercury-authorization", mercuryAuthorization)
-	req.Header.Set("x-auth-key", authKey)
+	req.Header.Set("x-auth-key", AUTH_KEY)
 
 	client := &http.Client{}
 	resp, err := client.Do(req)

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package io.github.sim1222.mixi2proto.rpc;
+
+option go_package = "github.com/sim1222/mixi2proto/rpc";
+
+message StartEmailAuthenticationRequest {
+  string email = 1;
+  uint32 nazo1 = 2; // 1
+  uint32 nazo2 = 3;	// 2
+  uint32 nazo3 = 4;	// 1
+}
+
+message StartEmailAuthenticationResponse {
+  string uuid = 1;
+}
+
+service StartEmailAuthentication {
+  rpc StartEmailAuthentication (StartEmailAuthenticationRequest) returns (StartEmailAuthenticationResponse) {}
+}

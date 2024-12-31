@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package io.github.sim1222.mixi2proto.rpc;
+
+option go_package = "github.com/sim1222/mixi2proto/rpc";
+
+import "models/Post.proto";
+
+message CreatePostRequest {
+	string body = 1;
+	string reply_to = 2;
+	string quote_to = 3;
+	string media_uuid = 4;
+	oneof nazoone {
+		uint32 nazo1 = 6;
+	}
+	string community_uuid = 7; // community or event uuid
+
+
+	bytes decoration_flag = 9;
+}
+
+service CreatePostService {
+	rpc CreatePost (CreatePostRequest) returns (models.Post) {}
+}
+
+/*
+gRPC message 0 (compressed False)
+[string]    1  hoppy            
+[uint32]    6  0                
+[bytes]     9  b'\x81\x80\x04'  
+
+gRPC message 0 (compressed False)
+[string]    1  shake            
+[uint32]    6  0                
+[bytes]     9  b'\x82\x80\x04'  
+
+gRPC message 0 (compressed False)
+[string]    1  super shake      
+[uint32]    6  0                
+[bytes]     9  b'\x83\x80\x04'  
+
+gRPC message 0 (compressed False)
+[string]    1  big  
+[uint32]    6  0    
+[string]    9  .    // 01
+
+0000000000 00 00 00 00 0a 0a 03 62 69 67 30 00 4a 01 01      .......big0.J..
+
+gRPC message 0 (compressed False)
+[string]    1  super big  
+[uint32]    6  0          
+[string]    9  .         // 02
+
+0000000000 00 00 00 00 0a 0a 03 62 69 67 30 00 4a 01 02      .......big0.J..
+
+gRPC message 0 (compressed False)
+[string]    1  angry            
+[uint32]    6  0                
+[bytes]     9  b'\x81\x80\x08'  
+
+0000000000 00 00 00 00 0c 0a 03 62 69 67 30 00 4a 03 81 80   .......big0.J...
+0000000010 08                                                .
+
+gRPC message 0 (compressed False)
+[string]    1  down             
+[uint32]    6  0                
+[bytes]     9  b'\x82\x80\x08'  
+
+gRPC message 0 (compressed False)
+[string]    1  shine            
+[uint32]    6  0                
+[bytes]     9  b'\x83\x80\x08' 
+
+gRPC message 0 (compressed False)
+[string]    1  love             
+[uint32]    6  0                
+[bytes]     9  b'\x84\x80\x08'  
+
+gRPC message 0 (compressed False)
+[string]    1  heartbeat        
+[uint32]    6  0                
+[bytes]     9  b'\x85\x80\x08'  
+
+gRPC message 0 (compressed False)
+[string]    1  hoppy big angly                  
+[uint32]    6  0                                
+[bytes]     9  b'\x01\x81\x80\x04\x81\x80\x08'  
+
+0000000000 00 00 00 00 1c 0a 0f 68 6f 70 70 79 20 62 69 67   .......hoppy big
+0000000010 20 61 6e 67 6c 79 30 00 4a 07 01 81 80 04 81 80    angly0.J.......
+0000000020 08                                                .
+*/

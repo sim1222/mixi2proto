@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+package io.github.sim1222.mixi2proto.rpc;
+
+option go_package = "github.com/sim1222/mixi2proto/rpc";

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package io.github.sim1222.mixi2proto.rpc;
+
+option go_package = "github.com/sim1222/mixi2proto/rpc";
+
+import "models/Post.proto";
+
+message GetPostsRequest {
+  repeated string uuid = 1;
+}
+
+message GetPostsResponse {
+  repeated models.Post posts = 1;
+}
+
+service GetPosts {
+  rpc GetPosts(GetPostsRequest) returns (GetPostsResponse) {}
+}

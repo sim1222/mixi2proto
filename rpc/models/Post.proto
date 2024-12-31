@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package io.github.sim1222.mixi2proto.rpc.models;
+
+option go_package = "github.com/sim1222/mixi2proto/rpc/models";
+
+message PostSummary {
+	string post_uuid = 1;
+	string unix_time_usec = 2;
+	PostTime post_time = 3;
+	string user_uuid = 4;
+
+	repeated Media media = 7;
+
+	string body = 12;
+
+	/*
+	 * 81 80 04: hoppy
+	 * 82 80 04: shake
+	 * 83 80 04: super shake
+
+	 * 01: big
+	 * 02: super big
+
+	 * 81 80 08: angry
+	 * 82 80 08: down
+	 * 83 80 08: shine
+	 * 84 80 08: love
+	 * 85 80 08: heartbeat
+
+	 * 01 81 80 04 81 80 08: hoppy big angly
+	 concat all the above
+	 */
+	bytes decoration_flag = 28;
+	repeated ReactionCount reaction_counts = 29;
+}
+
+message PostTime {
+	uint32 unix_time_sec = 1;
+}
+
+message ReactionCount {
+	Reaction reaction = 1;
+	uint32 count = 2;
+}
+
+message Reaction {
+	string reaction_id = 1;
+	string image_url = 2;
+}
+
+message Media {
+	string uuid = 1;
+	uint32 nazo = 3;
+	uint32 nazo2 = 4;
+
+	MediaDetail media_detail = 6;
+}
+
+message MediaDetail {
+	string full_url = 1;
+	string full_mime_type = 2;
+	uint32 full_height = 3;
+	uint32 full_width = 4;
+	string thumbnail_url = 5;
+	string thumbnail_mime_type = 6;
+	uint32 thumbnail_height = 7;
+	uint32 thumbnail_width = 8;
+	string blur_hash = 9;
+}
+
+message Post {
+	PostSummary post_summary = 1;
+}

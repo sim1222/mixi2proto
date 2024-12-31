@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package io.github.sim1222.mixi2proto.rpc;
+
+option go_package = "github.com/sim1222/mixi2proto/rpc";
+
+import "models/Token.proto";
+
+message RefreshTokenRequest {
+  string refresh_token = 1;
+}
+
+service RefreshToken {
+  rpc RefreshToken (RefreshTokenRequest) returns (models.TokenResponse) {}
+}
